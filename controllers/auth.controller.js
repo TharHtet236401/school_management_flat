@@ -21,9 +21,6 @@ export const register = async (req, res) => {
 
     const toEncrypt = {
       _id: user._id,
-      email: user.email,
-      role: user.role,
-      classes: user.classes,
     };
 
     const token = genToken(toEncrypt);
@@ -50,9 +47,6 @@ export const login = async (req, res) => {
 
     const toEncrypt = {
       _id: user._id,
-      email: user.email,
-      role: user.role,
-      classes: user.classes,
     };
 
     const token = genToken(toEncrypt);

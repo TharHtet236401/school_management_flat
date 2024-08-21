@@ -6,11 +6,12 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 import authRoute from "./routes/auth.route.js";
-
+import schoolRoute from "./routes/school.route.js";
 app.use(express.json());
 dotenv.config();
 
 app.use("/api/auth", authRoute);
+app.use("/api/school", schoolRoute);
 
 app.use((err, req, res, next) => {
   err.status = err.status || 505;

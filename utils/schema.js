@@ -23,3 +23,12 @@ export const UserSchema={
         user:Joi.object().optional()
     })
 }
+
+export const SchoolSchema={
+    create:Joi.object({
+        name:Joi.string().required(),
+        email:Joi.string().email().required(),
+        phone:Joi.string().min(7).max(11).required(),
+        address:Joi.string().required(),
+    })
+}

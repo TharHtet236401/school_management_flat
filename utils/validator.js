@@ -1,3 +1,9 @@
+import jwt from "jsonwebtoken";
+import bcrypt from "bcrypt";
+import dotenv from "dotenv";
+
+dotenv.config();
+
 export const validateBody = (schema) => {
     return (req, res, next) => {
         let result = schema.validate(req.body);
