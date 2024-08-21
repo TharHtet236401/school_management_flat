@@ -1,5 +1,5 @@
 import User from "../models/user.model.js";
-import { fMsg, hashPassword } from "../utils/libby.js";
+import { fMsg, encode, comPass, decode, genToken } from "../utils/libby.js";
 import bcrypt from "bcrypt";
 import dotenv from "dotenv";
 
@@ -9,7 +9,7 @@ export const register = async (req, res) => {
   try {
     const { userName, email, password, phone, confirmPassword } = req.body;
 
-    const hashedPassword = await hashPassword(password);
+    const hashedPassword = encode(password);
 
     const newUser = {
       userName,
@@ -19,7 +19,15 @@ export const register = async (req, res) => {
     };
     const user = await User.create(newUser);
 
-    fMsg(res, "Registered Successfully", user);
+    const toEncrypt = {
+      _id: user._id,
+      email: user.email,
+      role: user.role,
+      class: user.class,
+    };
+
+    const token = genToken(toEncrypt);
+    fMsg(res, "Registered Successfully", { user, token });
   } catch (error) {
     fMsg(res, "Registration failed", error.message);
   }
