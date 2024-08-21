@@ -23,12 +23,41 @@ export const register = async (req, res) => {
       _id: user._id,
       email: user.email,
       role: user.role,
-      class: user.class,
+      classes: user.classes,
     };
 
     const token = genToken(toEncrypt);
     fMsg(res, "Registered Successfully", { user, token });
   } catch (error) {
     fMsg(res, "Registration failed", error.message);
+  }
+};
+
+
+export const login = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+
+    const user = await User.findOne({ email });
+    if (!user) {
+      return fMsg(res, "Login failed", "User not found");
+    }
+
+    const isMatch = comPass(password, user.password);
+    if (!isMatch) {
+      return fMsg(res, "Login failed", "Invalid password");
+    }
+
+    const toEncrypt = {
+      _id: user._id,
+      email: user.email,
+      role: user.role,
+      classes: user.classes,
+    };
+
+    const token = genToken(toEncrypt);
+    fMsg(res, "Login Successfully", { user, token });
+  } catch (error) {
+    fMsg(res, "Login failed", error.message);
   }
 };
