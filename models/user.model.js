@@ -1,7 +1,7 @@
 import mongoose, { STATES } from "mongoose";    
 
 const userSchema = new mongoose.Schema({
-    name: {
+    userName: {
         type: String,
         required: true
     },
@@ -22,11 +22,11 @@ const userSchema = new mongoose.Schema({
     },
     schools: {
         type: [String],
-        required: true
+        
     },
     classes:{
         type: [String],
-        required: true
+        
     },
     childern:{
         type: [mongoose.Schema.Types.ObjectId], // Updated to reference ObjectId
@@ -35,7 +35,7 @@ const userSchema = new mongoose.Schema({
     roles: {
         type: [String],
         enum: ['admin', 'teacher', 'guardian'], // Added enum for specific roles
-        required: true
+        
     },
     relation: {
         type: [String],

@@ -5,12 +5,12 @@ import connectToMongoDB from "./connectMongodb.js";
 const app = express();
 const port = process.env.PORT || 3000;
 
+import authRoute from "./routes/auth.route.js";
+
 app.use(express.json());
 dotenv.config();
 
-app.get("/", (req, res) => {
-  res.send("Hello World");
-});
+app.use("/api/auth", authRoute);
 
 app.use((err, req, res, next) => {
   err.status = err.status || 505;
