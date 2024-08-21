@@ -24,3 +24,17 @@ export const createSchool = async (req, res) => {
     fMsg(res, "School creation failed", error.message);
   }
 };
+
+export const editSchool = async (req, res) => {
+  try {
+    const school = await School.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+    }); 
+    if (!school) {
+      return fMsg(res, "School not found", "School not found");
+    }
+    fMsg(res, "School updated successfully", school);
+  } catch (error) {
+    fMsg(res, "School update failed", error.message);
+  }
+};
